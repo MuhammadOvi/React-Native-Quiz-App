@@ -13,7 +13,7 @@ export default class QuizScreen extends React.Component {
 
     this.setState({ loading: !loading });
     fetch(
-      'https://opentdb.com/api.php?amount=10&category=18&difficulty=easy&type=multiple',
+      'https://opentdb.com/api.php?amount=10&category=18&difficulty=easy&type=multiple&encode=base64',
     )
       .then(response => response.json())
       .then(({ results }) => {

@@ -39,6 +39,7 @@ export default class App extends React.Component {
         'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
         // adding custom font
         'Century-Gothic': require('./assets/fonts/Century-Gothic.ttf'),
+        'Century-Gothic-Bold': require('./assets/fonts/Century-Gothic-Bold.ttf'),
       }),
     ]);
 
