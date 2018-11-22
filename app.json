@@ -1,12 +1,12 @@
 {
   "expo": {
     "name": "QuizApp",
-    "description": "A very interesting project.",
-    "slug": "QuizApp",
+    "description": "Simple Quiz Application on React Native\nHere's what it does!\n\nIt's a single-page trivia quiz app.\n\nThe app will first start the camera and user will capture the photo. If the camera detects the face, it will show the button to start the quiz otherwise show the error, no face found!\n\nThe app will then pull 10 questions from the Open Trivia Database API\n\nIt will display a \"Start Quiz\" button to the user.\n\nWhen the user clicks this button, it will display the questions, and allow the user to answer them.\n\nWhen the user has answered all the questions, the application will show the user a total score.\n\nIt will also show the amount of time taken to answer the questions.\n\nThere is be a \"Play again\" button that allows the user to play the quiz again.\n\n- Muhammad Ovi",
+    "slug": "quizapp",
     "privacy": "public",
     "sdkVersion": "31.0.0",
     "platforms": ["ios", "android"],
-    "version": "1.0.0",
+    "version": "0.1.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "splash": {
@@ -17,11 +17,10 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "githubUrl": "https://github.com/MuhammadOvi/React-Native-Quiz-App"
   }
 }
