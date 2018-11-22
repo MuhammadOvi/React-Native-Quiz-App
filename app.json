@@ -5,7 +5,10 @@
     "slug": "quizapp",
     "privacy": "public",
     "sdkVersion": "31.0.0",
-    "platforms": ["ios", "android"],
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "version": "0.1.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -17,17 +20,21 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.muhammadovi.quizapp",
-      "buildNumber": "0.10.1",
+      "buildNumber": "0.10.0",
       "icon": "./assets/images/icon.png"
     },
     "android": {
       "package": "com.muhammadovi.quizapp",
-      "versionCode": "0.1.0",
-      "permissions": ["CAMERA"]
+      "versionCode": 25010,
+      "permissions": [
+        "CAMERA"
+      ]
     },
     "githubUrl": "https://github.com/MuhammadOvi/React-Native-Quiz-App"
   }
