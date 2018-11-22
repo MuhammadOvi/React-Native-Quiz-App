@@ -19,7 +19,15 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.muhammadovi.quizapp",
+      "buildNumber": "0.10.1",
+      "icon": "./assets/images/icon.png"
+    },
+    "android": {
+      "package": "com.muhammadovi.quizapp",
+      "versionCode": "0.1.0",
+      "permissions": ["CAMERA"]
     },
     "githubUrl": "https://github.com/MuhammadOvi/React-Native-Quiz-App"
   }
