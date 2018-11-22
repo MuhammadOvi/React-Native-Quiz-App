@@ -1,6 +1,15 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, Button } from 'react-native';
-import { Camera, Permissions } from 'expo';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  Dimensions,
+  Image,
+} from 'react-native';
+import { Camera, Permissions, FaceDetector } from 'expo';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { Ionicons } from '@expo/vector-icons';
 // import { WebBrowser } from 'expo';
 
 export default class HomeScreen extends React.Component {
@@ -11,6 +20,8 @@ export default class HomeScreen extends React.Component {
   state = {
     hasCameraPermission: null,
     type: Camera.Constants.Type.front,
+    image: null,
+    faces: [],
   };
 
   askPermission = async () => {
@@ -18,8 +29,25 @@ export default class HomeScreen extends React.Component {
     this.setState({ hasCameraPermission: status === 'granted' });
   };
 
+  snap = async () => {
+    if (this.camera) {
+      const { uri } = await this.camera.takePictureAsync();
+      this.setState({ image: uri });
+      const { faces } = await this.detectFaces(uri);
+      this.setState({ faces });
+    }
+  };
+
+  detectFaces = async imageUri => {
+    const options = { mode: FaceDetector.Constants.Mode.fast };
+    // eslint-disable-next-line no-return-await
+    return await FaceDetector.detectFacesAsync(imageUri, options);
+  };
+
   render() {
-    const { hasCameraPermission, type } = this.state;
+    const { hasCameraPermission, type, image, faces } = this.state;
+    const { navigation } = this.props;
+
     if (hasCameraPermission === null) {
       return (
         <View style={styles.containerCenter}>
@@ -43,37 +71,89 @@ export default class HomeScreen extends React.Component {
         </View>
       );
     }
-    return (
+    return !image ? (
       <View style={{ flex: 1 }}>
-        <Camera style={{ flex: 1, margin: 25, marginTop: 35 }} type={type}>
+        <Camera
+          style={{
+            height: '100%',
+            maxHeight: Dimensions.get('window').width + 100,
+          }}
+          type={type}
+          ref={ref => {
+            this.camera = ref;
+          }}
+        />
+        <View style={styles.actionBtns}>
+          <Ionicons
+            name="md-reverse-camera"
+            size={35}
+            color="#008080"
+            onPress={() => {
+              this.setState({
+                type:
+                  type === Camera.Constants.Type.back
+                    ? Camera.Constants.Type.front
+                    : Camera.Constants.Type.back,
+              });
+            }}
+          />
+          <Ionicons
+            name="md-radio-button-on"
+            size={80}
+            color="#808080"
+            onPress={() => this.snap()}
+          />
+          <Ionicons
+            name="md-close-circle"
+            size={35}
+            color="#ff5500"
+            onPress={() => this.setState({ hasCameraPermission: null })}
+          />
+        </View>
+      </View>
+    ) : (
+      <View style={{ flex: 1 }}>
+        <Image
+          source={{ uri: image }}
+          style={{
+            height: '85%',
+            minHeight: Dimensions.get('window').width,
+            width: '100%',
+          }}
+        />
+        {faces.length > 0 ? (
           <View
             style={{
-              flex: 1,
-              backgroundColor: 'transparent',
-              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column',
+              height: '15%',
             }}
           >
-            <TouchableOpacity style={styles.actionBtns}>
-              <Button
-                onPress={() => {
-                  this.setState({
-                    type:
-                      type === Camera.Constants.Type.back
-                        ? Camera.Constants.Type.front
-                        : Camera.Constants.Type.back,
-                  });
-                }}
-                title="Flip"
-                color="#64cfef"
-              />
-              <Button
-                onPress={() => this.setState({ hasCameraPermission: null })}
-                title="Cancel"
-                color="#64cfef"
-              />
-            </TouchableOpacity>
+            <Text style={{ marginBottom: 10 }}>Hi there!</Text>
+            <Button
+              onPress={() => navigation.navigate('Quiz')}
+              title="Start Quiz"
+              color="#008080"
+            />
           </View>
-        </Camera>
+        ) : (
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column',
+              height: '15%',
+            }}
+          >
+            <Text style={{ marginBottom: 10 }}>No Face Found!</Text>
+            <Button
+              onPress={() => this.setState({ image: null })}
+              title="Retake"
+              color="#ff5500"
+            />
+          </View>
+        )}
       </View>
     );
   }
@@ -108,10 +188,10 @@ const styles = StyleSheet.create({
   },
   actionBtns: {
     flex: 1,
-    alignSelf: 'flex-end',
-    alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    marginBottom: 20,
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    padding: 10,
   },
 });
