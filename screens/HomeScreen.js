@@ -133,7 +133,7 @@ export default class HomeScreen extends React.Component {
             <Text style={{ marginBottom: 10 }}>Hi there!</Text>
             <Button
               onPress={() => navigation.navigate('Quiz')}
-              title="Start Quiz"
+              title="Proceed"
               color="#008080"
             />
           </View>
