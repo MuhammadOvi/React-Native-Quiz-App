@@ -11,6 +11,7 @@ import RadioForm, {
   RadioButtonInput,
   RadioButtonLabel,
 } from 'react-native-simple-radio-button';
+import base64 from 'base-64';
 // eslint-disable-next-line import/no-extraneous-dependencies
 // import { Ionicons } from '@expo/vector-icons';
 
@@ -86,11 +87,11 @@ export default class Questions extends React.Component {
     optionItems.push(questionToAsk.correct_answer);
 
     const options = optionItems.map((option, index) => ({
-      label: window.atob(option),
+      label: base64.decode(option),
       value: index,
     }));
 
-    const currentQuestion = window.atob(questionToAsk.question);
+    const currentQuestion = base64.decode(questionToAsk.question);
 
     this.setState({ options, currentQuestion, questions });
   };
@@ -108,11 +109,11 @@ export default class Questions extends React.Component {
     const currentQuestion = questions[asked];
 
     const currentAnswer = {
-      question: window.atob(currentQuestion.question),
-      correct_answer: window.atob(currentQuestion.correct_answer),
+      question: base64.decode(currentQuestion.question),
+      correct_answer: base64.decode(currentQuestion.correct_answer),
       userAnswer: options[answer].label,
       score:
-        window.atob(currentQuestion.correct_answer) === options[answer].label,
+        base64.decode(currentQuestion.correct_answer) === options[answer].label,
     };
 
     const updatedAnswers = answers;

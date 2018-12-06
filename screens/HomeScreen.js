@@ -51,8 +51,9 @@ export default class HomeScreen extends React.Component {
     if (hasCameraPermission === null) {
       return (
         <View style={styles.containerCenter}>
-          <Text style={styles.text}>
-            {`Click to open the Camera\n(Please allow if it asks for permission)`}
+          <Text style={styles.text}>Click to open the Camera</Text>
+          <Text style={styles.textPermission}>
+            {`(Please allow if it asks for permission)`}
           </Text>
           <Button
             onPress={this.askPermission}
@@ -184,6 +185,15 @@ const styles = StyleSheet.create({
     fontFamily: 'Century-Gothic',
     padding: 30,
     paddingTop: 10,
+    paddingBottom: 0,
+  },
+  textPermission: {
+    fontSize: 13,
+    color: 'rgba(96,100,109, 1)',
+    textAlign: 'center',
+    fontFamily: 'Century-Gothic',
+    padding: 30,
+    paddingTop: 0,
     paddingBottom: 10,
   },
   actionBtns: {
